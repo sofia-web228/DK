@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&K — кофейня в Курчатове</title>
+    <meta name="description" content="D&K — уютная кофейня в Курчатове. Свежий кофе, десерты и тёплая атмосфера.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ---------- Цвета сайта в одном месте ----------
+           Хочешь другую палитру? Меняй только эти строчки. */
+        :root {
+            --bg: #1a1a2e;        /* фон страницы */
+            --card: #232342;      /* фон карточек */
+            --text: #eeeeee;      /* основной текст */
+            --accent: #e0a96d;    /* кофейный акцентный цвет */
+        }
+
+        /* Чтобы padding и border не раздували размеры блоков */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Плавная прокрутка при клике по меню */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ---------- Шапка с меню ---------- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 25px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* ---------- Главный экран ---------- */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            color: var(--accent);
+            margin: 0 0 10px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Класс .btn — для кнопок. Так стили не влияют на обычные ссылки */
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 30px;
+            background-color: var(--accent);
+            color: var(--bg);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #fff;
+        }
+
+        /* ---------- Общие стили разделов ---------- */
+        section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 36px;
+            color: var(--accent);
+            margin-bottom: 40px;
+        }
+
+        /* ---------- О нас ---------- */
+        .about p {
+            text-align: center;
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 15px;
+        }
+
+        /* ---------- Меню ---------- */
+        /* Сетка: карточки сами перестраиваются под ширину экрана */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h3 {
+            margin: 0 0 15px;
+            color: var(--accent);
+        }
+
+        /* Таблицы с ценами: название слева, размеры напитков колонками справа */
+        .menu-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .menu-table th {
+            text-align: right;
+            font-size: 13px;
+            font-weight: 400;
+            opacity: 0.7;
+            padding: 0 0 8px 10px;
+        }
+
+        .menu-table td {
+            padding: 8px 0 8px 10px;
+            text-align: right;
+            font-weight: 700;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Первая колонка — название, оно выровнено влево и не жирное */
+        .menu-table td:first-child {
+            text-align: left;
+            padding-left: 0;
+            font-weight: 400;
+        }
+
+        .menu-note {
+            margin: 15px 0 0;
+            font-size: 14px;
+            opacity: 0.75;
+        }
+
+        .menu-footnote {
+            text-align: center;
+            margin-top: 25px;
+            opacity: 0.75;
+        }
+
+        /* ---------- Контакты ---------- */
+        .contacts {
+            text-align: center;
+        }
+
+        .contacts p {
+            font-size: 18px;
+            margin: 8px 0;
+        }
+
+        .contacts a {
+            color: var(--accent);
+        }
+
+        /* ---------- Подвал ---------- */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        /* ---------- Адаптив под телефоны ----------
+           Правила внутри работают, если экран уже 600px */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px 20px;
+            }
+
+            nav a {
+                margin: 0 10px;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="logo">D&amp;K</div>
+        <nav>
+            <a href="#about">О нас</a>
+            <a href="#menu">Меню</a>
+            <a href="#contacts">Контакты</a>
+        </nav>
+    </header>
+
+    <!-- Главный экран -->
+    <div class="hero">
+        <h1>D&amp;K</h1>
+        <p>Кофейня в Курчатове. Классический и авторский кофе, бабл ти, лимонады и перекусы с собой.</p>
+        <a class="btn" href="#menu">Смотреть меню</a>
+    </div>
+
+    <!-- О нас -->
+    <section id="about" class="about">
+        <h2>О нас</h2>
+        <p>D&amp;K — это небольшая уютная кофейня в самом центре Курчатова. У нас есть классический и авторский кофе, бабл ти, лимонады, сэндвичи и блинчики.</p>
+        <p>Приходите поработать, встретиться с друзьями или просто взять стаканчик кофе с собой.</p>
+    </section>
+
+    <!-- Меню -->
+    <!-- Цены в рублях. Если цена изменится — правь число в нужной строке <tr> -->
+    <section id="menu">
+        <h2>Меню</h2>
+        <div class="menu-grid">
+
+            <!-- Классический кофе: три размера -->
+            <div class="card">
+                <h3>Классическое</h3>
+                <table class="menu-table">
+                    <thead>
+                        <tr><th></th><th>250 мл</th><th>350 мл</th><th>450 мл</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Американо</td><td>130</td><td>150</td><td>—</td></tr>
+                        <tr><td>Флэт уайт</td><td>170</td><td>200</td><td>—</td></tr>
+                        <tr><td>Капучино</td><td>150</td><td>180</td><td>200</td></tr>
+                        <tr><td>Латте</td><td>150</td><td>180</td><td>200</td></tr>
+                        <tr><td>Раф</td><td>170</td><td>190</td><td>210</td></tr>
+                        <tr><td>Тёплое молоко</td><td>100</td><td>120</td><td>150</td></tr>
+                        <tr><td>Горячий шоколад</td><td>180</td><td>210</td><td>240</td></tr>
+                        <tr><td>Какао</td><td>160</td><td>190</td><td>220</td></tr>
+                        <tr><td>Матча-латте</td><td>170</td><td>190</td><td>220</td></tr>
+                        <tr><td>Моккачино</td><td>170</td><td>190</td><td>210</td></tr>
+                    </tbody>
+                </table>
+                <p class="menu-note">Эспрессо (36 г) — 110 ₽</p>
+            </div>
+
+            <!-- Авторский кофе: два размера -->
+            <div class="card">
+                <h3>Авторское</h3>
+                <table class="menu-table">
+                    <thead>
+                        <tr><th></th><th>350 мл</th><th>450 мл</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Капучино «Птичье молоко»</td><td>230</td><td>250</td></tr>
+                        <tr><td>Капучино мята-барбарис</td><td>230</td><td>250</td></tr>
+                        <tr><td>Мокко белый шоколад</td><td>220</td><td>240</td></tr>
+                        <tr><td>Латте чизкейк-фисташка</td><td>240</td><td>260</td></tr>
+                        <tr><td>Ореховый латте</td><td>220</td><td>250</td></tr>
+                        <tr><td>Раф Баунти</td><td>240</td><td>270</td></tr>
+                        <tr><td>Сырный латте</td><td>230</td><td>250</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Горячее или холодное -->
+            <div class="card">
+                <h3>Горячее или холодное</h3>
+                <table class="menu-table">
+                    <thead>
+                        <tr><th></th><th>350 мл</th><th>450 мл</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Пина-колада</td><td>250</td><td>270</td></tr>
+                        <tr><td>Бамбл</td><td>250</td><td>270</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Бабл ти -->
+            <div class="card">
+                <h3>Бабл ти</h3>
+                <table class="menu-table">
+                    <thead>
+                        <tr><th></th><th>350 мл</th><th>450 мл</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Манго-маракуйя</td><td>250</td><td>280</td></tr>
+                        <tr><td>Латте черника-ежевика</td><td>250</td><td>280</td></tr>
+                        <tr><td>Клубничный йогурт</td><td>260</td><td>290</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Лимонады -->
+            <div class="card">
+                <h3>Лимонады</h3>
+                <table class="menu-table">
+                    <thead>
+                        <tr><th></th><th>350 мл</th><th>450 мл</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Мохито</td><td>250</td><td>270</td></tr>
+                        <tr><td>Ягодный</td><td>255</td><td>275</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Другие холодные напитки -->
+            <div class="card">
+                <h3>Другое</h3>
+                <table class="menu-table">
+                    <thead>
+                        <tr><th></th><th>350 мл</th><th>450 мл</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Матча-кактус</td><td>260</td><td>290</td></tr>
+                        <tr><td>Эспрессо-тоник</td><td>220</td><td>240</td></tr>
+                        <tr><td>Смузи яблоко-банан</td><td>240</td><td>260</td></tr>
+                        <tr><td>Молочный коктейль</td><td>230</td><td>250</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Еда: у неё один размер, поэтому цена одна -->
+            <div class="card">
+                <h3>Перекусить</h3>
+                <table class="menu-table">
+                    <tbody>
+                        <tr><td>Сэндвич с ветчиной и сыром</td><td>240</td></tr>
+                        <tr><td>Блинчик с бананом и шоколадом</td><td>220</td></tr>
+                        <tr><td>Блинчик «Цезарь»</td><td>270</td></tr>
+                    </tbody>
+                </table>
+                <p class="menu-note">Можно взять с собой</p>
+            </div>
+
+            <!-- Добавки -->
+            <div class="card">
+                <h3>Добавки</h3>
+                <table class="menu-table">
+                    <tbody>
+                        <tr><td>Альтернативное молоко</td><td>+50</td></tr>
+                        <tr><td>Сироп</td><td>+30</td></tr>
+                        <tr><td>Маршмэллоу</td><td>+30</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <p class="menu-footnote">Все цены указаны в рублях</p>
+    </section>
+
+    <!-- Контакты -->
+    <!-- ВАЖНО: адрес, часы и телефон — примеры. Замени на настоящие. -->
+    <section id="contacts" class="contacts">
+        <h2>Контакты</h2>
+        <p><strong>Адрес:</strong> г. Курчатов, ул. Энергетиков</p>
+        <p><strong>Часы работы:</strong> ежедневно с 9:00 до 21:00</p>
+        <p><strong>Телефон:</strong> <a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
+        <a class="btn" href="https://vk.ru/coffe_dk">Мы ВКонтакте</a>
+    </section>
+
+    <footer>
+        &copy; 2026 D&amp;K. Кофейня в Курчатове.
+    </footer>
+
+</body>
+</html>
